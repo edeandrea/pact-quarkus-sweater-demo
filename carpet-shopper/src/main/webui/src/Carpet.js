@@ -8,8 +8,8 @@ const OrderNumber = styled.span`
 const Carpet = ({carpet}) => {
     return (
         <div className="carpet-card">
-            <p><OrderNumber>#{carpet.orderNumber}</OrderNumber>Your new carpet is
-                a {carpet.colour ? `nice ${carpet.colour}` : "totally indescribable"} carpet. {carpet.colour ? `` : "(Sad wookie.)"}
+            <p><OrderNumber>#{carpet.orderNumber}</OrderNumber> Got
+                a {carpet.colour ? `nice ${carpet.colour}` : "totally indescribable"} carpet, you did! {carpet.colour ? `` : " (Sad wookie)"}
             </p>
         </div>
     );
