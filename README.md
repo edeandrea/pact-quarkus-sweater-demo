@@ -1,8 +1,5 @@
 # pact-quarkus-sweater-demo
-A sample application for illustrating pact contract testing ideas.
 
-![the flow of the application](images/app-flow.png)
+This is based on [Holly's `pact-quarkus-sweater-demo`](https://github.com/holly-cummins/pact-quarkus-sweater-demo), except the domain is now Wookie carpets.
 
-Note that only the farmer and knitter projects have contract tests. 
-
-See [the demo instructions](./demo-script.md) for a detailed walkthrough.
+See the [`wookie` branch](https://github.com/edeandrea/pact-quarkus-wookie-carpet-demo/tree/wookie) for all the updates.
