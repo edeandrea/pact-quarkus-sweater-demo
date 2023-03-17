@@ -97,6 +97,9 @@
 					<systemPropertyVariables>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
 						<maven.home>${maven.home}</maven.home>
+						<pact.provider.version>${project.version}</pact.provider.version>
+						<pact.provider.branch>wookie</pact.provider.branch>
+						<pact.provider.tag>wookie-carpets,v1</pact.provider.tag>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

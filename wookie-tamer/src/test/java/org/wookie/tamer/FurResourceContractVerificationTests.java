@@ -15,6 +15,8 @@ import au.com.dius.pact.provider.junitsupport.loader.PactFolder;
 
 @Provider("wookie-tamer")
 @PactFolder("pacts")
+//@PactBroker(url = "https://wookie-carpets.pactflow.io")
+//@EnabledIfSystemProperty(named = "pactbroker.auth.token", matches = ".+", disabledReason = "pactbroker.auth.token system property not set")
 @QuarkusTest // This starts the server for convenience in testing
 public class FurResourceContractVerificationTests {
 

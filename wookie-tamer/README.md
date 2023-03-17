@@ -1,5 +1,8 @@
 # wookie-tamer
 
+## Publishing contracts to broker
+You need to add `-Dpactbroker.auth.token=$WOOKIES_PACTBROKER_AUTH_TOKEN -Dpact.verifier.publishResults=true` for verification results to automatically publish.
+
 ## Trying it out
 
 ```shell

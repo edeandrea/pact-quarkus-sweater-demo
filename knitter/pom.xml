@@ -6,6 +6,7 @@
 	<artifactId>knitter</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<properties>
+		<app.version>${project.version}</app.version>
 		<compiler-plugin.version>3.11.0</compiler-plugin.version>
 		<failsafe.useModulePath>false</failsafe.useModulePath>
 		<maven.compiler.release>17</maven.compiler.release>
@@ -106,7 +107,23 @@
 					<systemPropertyVariables>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
 						<maven.home>${maven.home}</maven.home>
+						<pact.writer.overwrite>true</pact.writer.overwrite>
 					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>au.com.dius.pact.provider</groupId>
+				<artifactId>maven</artifactId>
+				<version>4.5.3</version>
+				<configuration>
+					<pactBrokerUrl>https://wookie-carpets.pactflow.io</pactBrokerUrl>
+					<pactBrokerToken>${env.WOOKIES_PACTBROKER_AUTH_TOKEN}</pactBrokerToken>
+					<pactBrokerAuthenticationScheme>Bearer</pactBrokerAuthenticationScheme>
+					<branchName>wookie</branchName>
+					<tags>
+						<tag>wookie-carpets</tag>
+						<tag>v1</tag>
+					</tags>
 				</configuration>
 			</plugin>
 		</plugins>
