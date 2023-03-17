@@ -86,7 +86,7 @@ public class RecorderResourceTest {
                 .extract().as(Log[].class);
 
         assertEquals(1, logs.length);
-        assertEquals(log.getName(), logs[0].getName());
+        assertEquals(log.name(), logs[0].name());
     }
 
 }

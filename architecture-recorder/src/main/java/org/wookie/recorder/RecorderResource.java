@@ -75,7 +75,7 @@ public class RecorderResource {
     @Path("/log")
     @POST
     public void addLog(Log log) {
-        System.out.println("\uD83C\uDFA5 [recorder] registering log " + log.getName());
+        System.out.println("\uD83C\uDFA5 [recorder] registering log " + log.name());
 
         logs.add(log);
     }
