@@ -6,11 +6,11 @@
 version: 2
 updates:
   - package-ecosystem: "npm" # See documentation for possible values
-    directory: "cold-person/src/webui" # Location of package manifests
+    directory: "carpet-shopper/src/webui" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "cold-person" # Location of package manifests
+    directory: "carpet-shopper" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "farmer" # Location of package manifests
+    directory: "wookie-tamer" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values

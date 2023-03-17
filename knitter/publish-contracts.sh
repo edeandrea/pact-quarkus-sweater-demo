@@ -1,6 +1,6 @@
 #! /bin/sh
 set -x
 
-rm -rf ../farmer/src/test/resources/pacts
-mkdir -p ../farmer/src/test/resources/pacts
-cp ./target/pacts/* ../farmer/src/test/resources/pacts
+rm -rf ../wookie-tamer/src/test/resources/pacts
+mkdir -p ../wookie-tamer/src/test/resources/pacts
+cp ./target/pacts/* ../wookie-tamer/src/test/resources/pacts

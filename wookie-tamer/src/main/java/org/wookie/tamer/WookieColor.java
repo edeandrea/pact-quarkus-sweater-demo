@@ -1,0 +1,14 @@
+package org.wookie.tamer;
+
+/**
+ * The different colors of Wookies we can have
+ */
+public enum WookieColor {
+	// The different colours of Wookies we can have
+	BROWN, BLACK, GRAY, WHITE;
+
+	@Override
+	public String toString() {
+		return name().toLowerCase();
+	}
+}
