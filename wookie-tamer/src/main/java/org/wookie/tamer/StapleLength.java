@@ -1,5 +1,5 @@
 package org.wookie.tamer;
 
-public enum FibreLength {
+public enum StapleLength {
 	Short, Medium, Long
 }

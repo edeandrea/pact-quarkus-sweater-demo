@@ -1,5 +1,7 @@
 package org.wookie.tamer;
 
+import java.util.Random;
+
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 
@@ -19,7 +21,7 @@ public class FurResource {
 			wookieColor = WookieColor.BROWN;
 		}
 
-		var skein = new Skein(wookieColor, order.orderNumber());
+		var skein = new Skein(wookieColor, order.orderNumber(), new Random().nextBoolean());
 
 		Log.infof("Fulfilling order #%d with %s", order.orderNumber(), skein);
 
