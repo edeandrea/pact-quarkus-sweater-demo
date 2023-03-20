@@ -40,7 +40,7 @@ jobs:
         cache: maven
       # Rather than fussing around with upload and download jobs and yet another workflow, just build the extension we depend on, since it's so small
     - name: Build Extension with Maven
-      working-directory: ../observer-extension
+      working-directory: observer-extension
       run: ./mvnw -B install
     - name: Build with Maven
       run: ./mvnw -B package
