@@ -40,14 +40,15 @@ jobs:
         cache: maven
       # Rather than fussing around with upload and download jobs, just build the extension we depend on, since it's so small
     - name: Build Extension with Maven
-      run: mvn -B install --file ../observer-extension/pom.xml
+      working-directory: ../observer-extension
+      run: ./mvnw -B install
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: ./mvnw -B package
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      if: github.event_name != 'pull_request'
-      uses: advanced-security/maven-dependency-submission-action@v3.0.0
-      with:
-        directory: './wookie-tamer'
-        ignore-maven-wrapper: true # if left as the default it will get confused and double-nest and look in wookie-tamer/wookie-tamer for the wrapper
+#    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+#    - name: Update dependency graph
+#      if: github.event_name != 'pull_request'
+#      uses: advanced-security/maven-dependency-submission-action@v3.0.0
+#      with:
+#        directory: './wookie-tamer'
+#        ignore-maven-wrapper: true # if left as the default it will get confused and double-nest and look in wookie-tamer/wookie-tamer for the wrapper
