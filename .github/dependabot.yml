@@ -38,31 +38,43 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "carpet-shopper/src/main/webui" # Location of package manifests
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "carpet-shopper" # Location of package manifests
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "knitter" # Location of package manifests
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "wookie-tamer" # Location of package manifests
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "architecture-recorder" # Location of package manifests
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "observer-extension" # Location of package manifests
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
   - package-ecosystem: "github-actions"
@@ -70,5 +82,7 @@ updates:
     # default location of `.github/workflows`
     directory: "/"
     target-branch: wookie
+    labels:
+      - wookie
     schedule:
       interval: "daily"
