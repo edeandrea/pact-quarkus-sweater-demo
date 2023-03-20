@@ -9,14 +9,15 @@
 name: Wookie Tamer CI
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "wookie", "main" ]
     paths:
       - 'wookie-tamer/**'
       - 'observer-extension/**'
       - '.github/workflows/wookie-tamer.yml'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "wookie", "main" ]
     paths:
       - 'wookie-tamer/**'
       - 'observer-extension/**'

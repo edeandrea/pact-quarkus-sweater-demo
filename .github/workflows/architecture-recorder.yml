@@ -9,16 +9,17 @@
 name: Architecture Recorder CI
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "wookie", "main" ]
     paths:
       - 'architecture-recorder/**'
       - '.github/workflows/architecture-recorder.yml'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "wookie", "main" ]
     paths:
       - 'architecture-recorder/**'
-      - '.github/workflows/architecture-spy.yml'
+      - '.github/workflows/architecture-recorder.yml'
 
 jobs:
   build:

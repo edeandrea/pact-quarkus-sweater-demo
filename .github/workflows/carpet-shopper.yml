@@ -9,14 +9,15 @@
 name: Carpet Shopper CI
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "wookie", "main" ]
     paths:
       - 'carpet-shopper/**'
       - 'observer-extension/**'
       - '.github/workflows/carpet-shopper.yml'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "wookie", "main" ]
     paths:
       - 'carpet-shopper/**'
       - 'observer-extension/**'
