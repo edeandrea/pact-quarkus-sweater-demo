@@ -114,7 +114,7 @@
 			<plugin>
 				<groupId>au.com.dius.pact.provider</groupId>
 				<artifactId>maven</artifactId>
-				<version>4.5.3</version>
+				<version>4.5.4</version>
 				<configuration>
 					<pactBrokerUrl>https://wookie-carpets.pactflow.io</pactBrokerUrl>
 					<pactBrokerToken>${env.WOOKIES_PACTBROKER_AUTH_TOKEN}</pactBrokerToken>
