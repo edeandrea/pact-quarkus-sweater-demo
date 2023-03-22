@@ -163,7 +163,7 @@ The provider contract tests in `wookie-tamer` should still pass, but now the con
 2. Now publish the tests, and we have the failure. 
 3. If you do want to add both tests, you can copy the existing pact and test methods, and change the colours in the copy. You will also need to add
 ```java
-    @PactTestFor(pactMethod = "buyingAPinkSweater")
+    @PactTestFor(pactMethod = "requestingPinkFurContract")
 ```
 onto the test method. (By default, Pact will only stand up the first `@Pact` for the right provider.)
 
