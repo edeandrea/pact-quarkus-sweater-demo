@@ -169,8 +169,8 @@ onto the test method. (By default, Pact will only stand up the first `@Pact` for
 
 ## Fallback and error handling
 
-1. So we have a failing test, but what's the right fix? Fallback to white isn't right, there should be some kind of error. 
-2. We think we should have a `418`, not a white carpet. `418` is `I'm a teapot`, maybe not the right code, but it's my code, so I can return what I want. Also, it keeps behaviour of the different services distinct. 
+1. So we have a failing test, but what's the right fix? Fallback to brown isn't right, there should be some kind of error. 
+2. We think we should have a `418`, not a brown carpet. `418` is `I'm a teapot`, maybe not the right code, but it's my code, so I can return what I want. Also, it keeps behaviour of the different services distinct. 
 3. Look at [`NotFoundExceptionHandler`](knitter/src/main/java/org/wookie/knitter/NotFoundExceptionHandler.java), which turns `NotFoundException`s into `418`s. 
 4. Update the tests to expect a `418`. 
    ```java
