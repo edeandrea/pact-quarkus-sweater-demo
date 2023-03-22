@@ -1,4 +1,4 @@
-# pact-quarkus-carpet-demo
+# pact-quarkus-wookie-carpet-demo
 A sample application for illustrating pact contract testing ideas.
 
 [//]: # (![the flow of the application]&#40;images/app-flow.png&#41;)
