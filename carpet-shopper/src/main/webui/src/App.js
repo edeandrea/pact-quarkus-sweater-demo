@@ -32,7 +32,7 @@ function App() {
     return (
         <Layout>
             <Shop>
-                <Icon src="sweater-white.png" alt="a stick figure in a jumper"/>
+                <Icon src="wookie-carpet.png" alt="wookie on a carpet"/>
                 <Title>
                     Wookie carpet shop
                 </Title>
