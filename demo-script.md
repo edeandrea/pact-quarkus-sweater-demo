@@ -50,12 +50,12 @@ OR
 ```
 
 ## The demo 
-1. Start the [`carpet-shopper`](carpet-shopper) service with `quarkus dev`.
+1. Start the [`carpet-shopper`](carpet-shopper) service with `quarkus dev --clean`.
 2. Visit http://localhost:8080. The app has a React front end and a Quarkus back end, stitched together and bridged by [Quarkus Quinoa](https://quarkiverse.github.io/quarkiverse-docs/quarkus-quinoa/dev/index.html).
 3. Try and do an order. Nothing will happen; there are no other services.
-4. Start the [`knitter`](knitter) service.
+4. Start the [`knitter`](knitter) service (`quarkus dev --clean`).
 5. Try and do an order. Nothing will happen; we need Wookie fur.
-6. Start the [`wookie-tamer`](wookie-tamer) service.
+6. Start the [`wookie-tamer`](wookie-tamer) service (`wookie-tamer/start-wookie-tamer-with-pact.sh`).
 7. Do an order for a brown carpet. It should succeed, and an order should appear.
 8. We've had to do quite a lot of starting of services, just to see if our app works... and this is a trivial application. Microservices are hard!
 9. Show the tests. Because of course there are tests, we're responsible developers. The tests should have also automatically been running in the background of each app via continuous testing.
