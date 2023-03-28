@@ -177,16 +177,13 @@ onto the test method. (By default, Pact will only stand up the first `@Pact` for
    @Test
    public void testCarpetEndpointForPinkCarpet() {
      var order = new CarpetOrder("pink", 16);
-     var carpet = given()
+     given()
        .contentType(ContentType.JSON)
        .body(order)
        .when()
        .post("/carpet/order")
        .then()
        .statusCode(418);
-       //.extract().as(Carpet.class);
-   
-     //assertEquals("pink", carpet.colour());
    }
    ```
 5. Update the implementation in [`CarpetResource`](knitter/src/main/java/org/wookie/knitter/CarpetResource.java) to wrap the invocation in a `try` and 

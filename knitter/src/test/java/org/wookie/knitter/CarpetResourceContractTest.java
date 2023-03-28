@@ -38,7 +38,7 @@ public class CarpetResourceContractTest {
 		// we are generic and say it can be anything that meets the schema
 		var furOrderBody = newJsonBody(body ->
 			body
-				.stringType("colour")
+				.stringType("colour", "brown")
 				.numberType("orderNumber")
 		).build();
 
@@ -72,9 +72,6 @@ public class CarpetResourceContractTest {
 				.numberType("orderNumber")
 		).build();
 
-		// And then define what the response from the mock should look like, which becomes part of the contract
-		var furBody = newJsonBody(body -> body.stringValue("colour", "pink")).build();
-
 		return builder
 			.uponReceiving("A request for pink wookie fur")
 				.path("/fur/order")
@@ -82,9 +79,7 @@ public class CarpetResourceContractTest {
 				.method(HttpMethod.POST)
 				.body(furOrderBody)
 			.willRespondWith()
-				.status(Status.OK.getStatusCode())
-				.headers(headers)
-				.body(furBody)
+				.status(Status.NOT_FOUND.getStatusCode())
 			.toPact(V4Pact.class);
 	}
 
@@ -108,15 +103,12 @@ public class CarpetResourceContractTest {
 	@PactTestFor(pactMethod = "requestingPinkFurContract")
 	public void testCarpetEndpointForPinkCarpet() {
 		var order = new CarpetOrder("pink", 16);
-		var carpet = given()
+		given()
 			.contentType(ContentType.JSON)
 			.body(order)
 			.when()
 			.post("/carpet/order")
 			.then()
-			.statusCode(200)
-			.extract().as(Carpet.class);
-
-		assertEquals("pink", carpet.colour());
+			.statusCode(418);
 	}
 }
