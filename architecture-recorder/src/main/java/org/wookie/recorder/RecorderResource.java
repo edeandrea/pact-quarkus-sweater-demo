@@ -1,7 +1,6 @@
-package org.sheepy.observer;
+package org.wookie.recorder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -11,15 +10,12 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.mongodb.ChangeStreamOptions;
 import io.quarkus.mongodb.panache.reactive.ReactivePanacheMongoEntityBase;
 import io.quarkus.mongodb.reactive.ReactiveMongoClient;
-import io.quarkus.mongodb.reactive.ReactiveMongoCollection;
-import io.quarkus.mongodb.reactive.ReactiveMongoDatabase;
 
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
@@ -46,7 +42,9 @@ public class RecorderResource {
 	@Path("/component")
 	@POST
 	public Uni<ObjectId> addComponent(Component component) {
-		return component.<Component>persistOrUpdate().invoke(c -> System.out.println("\uD83C\uDFA5 [recorder] registered component " + c.getName())).map(c -> c.id);
+		return component.<Component>persistOrUpdate()
+			.invoke(c -> System.out.println("\uD83C\uDFA5 [recorder] registered component " + c.getName()))
+			.map(c -> c.id);
 	}
 
 	@Path("/componentstream")
@@ -55,11 +53,14 @@ public class RecorderResource {
 	@GET
 	public Multi<Component> streamComponents() {
 		// We can't just use panache streamAll, we need to do a watch: Mongo will execute the query and give you the stream.
-		ReactiveMongoDatabase database = mongoClient.getDatabase(databaseName);
-		ReactiveMongoCollection<Component> dataCollection = database.getCollection(Component.class.getSimpleName(), Component.class);
-		ChangeStreamOptions options = new ChangeStreamOptions().fullDocument(FullDocument.UPDATE_LOOKUP);
-		List<Bson> pipeline = Collections.singletonList(Aggregates.match(Filters.and(Filters.eq("operationType", "insert"))));
-		return dataCollection.watch(pipeline, Component.class, options).map(ChangeStreamDocument::getFullDocument);
+		var database = mongoClient.getDatabase(databaseName);
+		var dataCollection = database.getCollection(Component.class.getSimpleName(), Component.class);
+		var options = new ChangeStreamOptions().fullDocument(FullDocument.UPDATE_LOOKUP);
+		var pipeline = List.of(Aggregates.match(Filters.and(Filters.eq("operationType", "insert"))));
+
+		return dataCollection
+			.watch(pipeline, Component.class, options)
+			.map(ChangeStreamDocument::getFullDocument);
 	}
 
 	@Path("/components")
@@ -73,7 +74,9 @@ public class RecorderResource {
 	public Uni<Void> addInteraction(Interaction interaction) {
 		interaction.setTimestamp(System.currentTimeMillis());
 
-		return interaction.<Interaction>persistOrUpdate().invoke(i -> System.out.println("\uD83C\uDFA5 [recorder] registering interaction " + i.getOwningComponent() + ":" + i.getMethodName())).replaceWithVoid();
+		return interaction.<Interaction>persistOrUpdate()
+			.invoke(i -> System.out.println("\uD83C\uDFA5 [recorder] registering interaction " + i.getOwningComponent() + ":" + i.getMethodName()))
+			.replaceWithVoid();
 	}
 
 	@Path("/interactionstream")
@@ -83,11 +86,14 @@ public class RecorderResource {
 	public Multi<Interaction> streamInteractions() {
 		// We can't just use panache streamAll, we need to do a watch: Mongo will execute the query and give you the stream.
 		// "Except if you use a mongo watch, it won't give you the update, just the initial query result (as a stream)"
-		ReactiveMongoDatabase database = mongoClient.getDatabase(databaseName);
-		ReactiveMongoCollection<Interaction> dataCollection = database.getCollection(Interaction.class.getSimpleName(), Interaction.class);
+		var database = mongoClient.getDatabase(databaseName);
+		var dataCollection = database.getCollection(Interaction.class.getSimpleName(), Interaction.class);
 		ChangeStreamOptions options = new ChangeStreamOptions().fullDocument(FullDocument.UPDATE_LOOKUP);
-		List<Bson> pipeline = Collections.singletonList(Aggregates.match(Filters.and(Filters.eq("operationType", "insert"))));
-		return dataCollection.watch(pipeline, Interaction.class, options).map(ChangeStreamDocument::getFullDocument);
+		var pipeline = List.of(Aggregates.match(Filters.and(Filters.eq("operationType", "insert"))));
+
+		return dataCollection
+			.watch(pipeline, Interaction.class, options)
+			.map(ChangeStreamDocument::getFullDocument);
 	}
 
 	@Path("/interactions")
@@ -99,7 +105,7 @@ public class RecorderResource {
 	@Path("/log")
 	@POST
 	public void addLog(Log log) {
-		System.out.println("\uD83C\uDFA5 [recorder] registering log " + log.getName());
+		System.out.println("\uD83C\uDFA5 [recorder] registering log " + log.name());
 
 		logs.add(log);
 	}
