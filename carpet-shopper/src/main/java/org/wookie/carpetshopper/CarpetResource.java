@@ -16,13 +16,13 @@ import io.quarkus.logging.Log;
 public class CarpetResource {
     @Inject
     @RestClient
-    KnitterService knitter;
+    WeaverService weaver;
 
     @Path("/order")
     @POST
     public Carpet order(CarpetOrder order) {
 			Log.infof("Got order #%d for carpet: %s", order.orderNumber(), order);
-	    var carpet = this.knitter.knitCarpet(order);
+	    var carpet = this.weaver.weaveCarpet(order);
 
 			Log.infof("Fulfilling order #%d with %s", order.orderNumber(), carpet);
 			return carpet;

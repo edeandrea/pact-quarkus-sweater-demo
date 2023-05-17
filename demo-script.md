@@ -22,7 +22,7 @@
 
 ### IDE setup 
 
-Open three IDEs, one for [`carpet-shopper`](carpet-shopper), [`knitter`](knitter), and [`wookie-tamer`](wookie-tamer). 
+Open three IDEs, one for [`carpet-shopper`](carpet-shopper), [`weaver`](weaver), and [`wookie-tamer`](wookie-tamer). 
 
 Open a terminal within each IDE (or three OS terminals). 
 
@@ -53,7 +53,7 @@ OR
 1. Start the [`carpet-shopper`](carpet-shopper) service with `quarkus dev --clean`.
 2. Visit http://localhost:8080. The app has a React front end and a Quarkus back end, stitched together and bridged by [Quarkus Quinoa](https://quarkiverse.github.io/quarkiverse-docs/quarkus-quinoa/dev/index.html).
 3. Try and do an order. Nothing will happen; there are no other services.
-4. Start the [`knitter`](knitter) service (`quarkus dev --clean`).
+4. Start the [`weaver`](weaver) service (`quarkus dev --clean`).
 5. Try and do an order. Nothing will happen; we need Wookie fur.
 6. Start the [`wookie-tamer`](wookie-tamer) service (`wookie-tamer/start-wookie-tamer-with-pact.sh`).
 7. Do an order for a brown carpet. It should succeed, and an order should appear.
@@ -73,18 +73,18 @@ OR
 ### Consumer
 1. How can we fix this? The app is broken, but the tests are all green. This is where contract tests give that extra validation to allow us to confirm assumptions. 
     - Pact is consumer-driven contract testing, so we start with the consumer. It's a bit like a TDD principle, start with the expectations.
-2. Open the [`knitter`](knitter) project in a terminal (or switch to it if you already opened it).
+2. Open the [`weaver`](weaver) project in a terminal (or switch to it if you already opened it).
 3. In a terminal, run `quarkus extension add quarkus-pact-consumer`
 4. Add the tests
-   1. If you're in a hurry, use the git history to recreate the contract tests. Rollback any [`pom.xml`](knitter/pom.xml) and [`CarpetResourceContractTest`](knitter/src/test/java/org/wookie/knitter/CarpetResourceContractTest.java) changes from the git history.
-   2. Otherwise, copy the [`CarpetResourceTest`](knitter/src/test/java/org/wookie/knitter/CarpetResourceTest.java) and use it as the starting point.
-       - The test method stays exactly the same, because we're trying to validate the behaviour of *our* knitter code.
-   3. The mocking logic is a bit different. [`CarpetResourceTest`](knitter/src/test/java/org/wookie/knitter/CarpetResourceTest.java) is mocking the entire call to the [`wookie-tamer`](wookie-tamer). Instead, we want it to actually make a call to the Pact mock server.
+   1. If you're in a hurry, use the git history to recreate the contract tests. Rollback any [`pom.xml`](weaver/pom.xml) and [`CarpetResourceContractTest`](weaver/src/test/java/org/wookie/weaver/CarpetResourceContractTest.java) changes from the git history.
+   2. Otherwise, copy the [`CarpetResourceTest`](weaver/src/test/java/org/wookie/weaver/CarpetResourceTest.java) and use it as the starting point.
+       - The test method stays exactly the same, because we're trying to validate the behaviour of *our* weaver code.
+   3. The mocking logic is a bit different. [`CarpetResourceTest`](weaver/src/test/java/org/wookie/weaver/CarpetResourceTest.java) is mocking the entire call to the [`wookie-tamer`](wookie-tamer). Instead, we want it to actually make a call to the Pact mock server.
        - Delete the mock injection of the `WookieService` and the `BeforeEach` method (`setUp()`)
        - *pact-tab* for the following live template:
       
       ```java
-      @Pact(consumer = "knitter")
+      @Pact(consumer = "weaver")
       public V4Pact requestingFurContract(PactDslWithProvider builder) {
         var headers = Map.of(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
       
@@ -119,14 +119,14 @@ OR
   @ExtendWith(PactConsumerTestExt.class)
   @PactTestFor(providerName = "wookie-tamer", port = "8096")
 ```
-6. Show the [`CarpetResourceTest`](knitter/src/test/java/org/wookie/knitter/CarpetResourceTest.java) and then compare the two tests.
+6. Show the [`CarpetResourceTest`](weaver/src/test/java/org/wookie/weaver/CarpetResourceTest.java) and then compare the two tests.
     - Explain the differences are because Pact acts both as a mock and a validator of all possible values.
-7. Restart the tests. A json contract has appeared in [`knitter/target/pacts`](knitter/target/pacts).
+7. Restart the tests. A json contract has appeared in [`weaver/target/pacts`](weaver/target/pacts).
 8. The test should pass, we're the consumer, we made assumptions about how the provider should behave. But are those assumptions correct? Now is when we find out! 
 9. Publish the Pact contract so it is available to the [`wookie-tamer` service](wookie-tamer) via 1 of the following 2 mechanisms:
-    - If you are **NOT** using the Pact broker, run [`knitter/publish-contracts.sh`](knitter/publish-contracts.sh).
+    - If you are **NOT** using the Pact broker, run [`weaver/publish-contracts.sh`](weaver/publish-contracts.sh).
         - Normally this would be done by automatically checking it into source control or by using a pact broker.
-    - If you **ARE** using the Pact broker, run [`knitter/publish-contracts-to-broker.sh`](knitter/publish-contracts-to-broker.sh).
+    - If you **ARE** using the Pact broker, run [`weaver/publish-contracts-to-broker.sh`](weaver/publish-contracts-to-broker.sh).
 
 ### Provider (wookie-tamer)
 
@@ -137,7 +137,7 @@ OR
 ## Carpet colour 
 
 1. We were too vague in our contract. We actually said in the contract any colour would give a brown carpet. 
-    - In [`CarpetResourceContractTest`](knitter/src/test/java/org/wookie/knitter/CarpetResourceContractTest.java), in the `requestingFurContract` contract method, change
+    - In [`CarpetResourceContractTest`](weaver/src/test/java/org/wookie/weaver/CarpetResourceContractTest.java), in the `requestingFurContract` contract method, change
     ```java
     var furOrderBody = newJsonBody(body ->
       body
@@ -156,7 +156,7 @@ OR
     ).build();
     ```
    
-The provider contract tests in `wookie-tamer` should still pass, but now the consumer tests in `knitter` are failing.
+The provider contract tests in `wookie-tamer` should still pass, but now the consumer tests in `weaver` are failing.
 
 (Normally we would build up the tests, but to keep it simple, we will just change the test.)
 
@@ -171,7 +171,7 @@ onto the test method. (By default, Pact will only stand up the first `@Pact` for
 
 1. So we have a failing test, but what's the right fix? Fallback to brown isn't right, there should be some kind of error. 
 2. We think we should have a `418`, not a brown carpet. `418` is `I'm a teapot`, maybe not the right code, but it's my code, so I can return what I want. Also, it keeps behaviour of the different services distinct. 
-3. Look at [`NotFoundExceptionHandler`](knitter/src/main/java/org/wookie/knitter/NotFoundExceptionHandler.java), which turns `NotFoundException`s into `418`s. 
+3. Look at [`NotFoundExceptionHandler`](weaver/src/main/java/org/wookie/weaver/NotFoundExceptionHandler.java), which turns `NotFoundException`s into `418`s. 
 4. Update the tests to expect a `418`. 
    ```java
    @Test
@@ -186,7 +186,7 @@ onto the test method. (By default, Pact will only stand up the first `@Pact` for
        .statusCode(418);
    }
    ```
-5. Update the implementation in [`CarpetResource`](knitter/src/main/java/org/wookie/knitter/CarpetResource.java) to wrap the invocation in a `try` and 
+5. Update the implementation in [`CarpetResource`](weaver/src/main/java/org/wookie/weaver/CarpetResource.java) to wrap the invocation in a `try` and 
    ```java
    } 
    catch (Exception e) {

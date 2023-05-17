@@ -16,7 +16,7 @@ updates:
       interval: "weekly"
     target-branch: wookie
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "knitter" # Location of package manifests
+    directory: "weaver" # Location of package manifests
     schedule:
       interval: "weekly"
     target-branch: wookie

@@ -11,7 +11,7 @@
 		<module>observer-extension</module>
 		<module>architecture-recorder</module>
 		<module>carpet-shopper</module>
-		<module>knitter</module>
+		<module>weaver</module>
 		<module>wookie-tamer</module>
 	</modules>
 </project>

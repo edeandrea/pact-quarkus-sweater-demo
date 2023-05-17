@@ -20,10 +20,16 @@ public class CarpetResource {
 	public Carpet weaveCarpet(CarpetOrder order) {
 		Log.infof("Got order #%d for carpet: %s", order.orderNumber(), order);
 		var furOrder = new FurOrder(order.colour(), order.orderNumber());
-		var skein = this.wookieService.getFur(furOrder);
-		var carpet = new Carpet(skein, order.orderNumber());
 
-		Log.infof("Fulfilling order #%d with %s", order.orderNumber(), carpet);
-		return carpet;
+		try {
+			var skein = this.wookieService.getFur(furOrder);
+			var carpet = new Carpet(skein, order.orderNumber());
+
+			Log.infof("Fulfilling order #%d with %s", order.orderNumber(), carpet);
+			return carpet;
+		}
+		catch (Exception e) {
+			throw new NotFoundException(order.colour());
+		}
 	}
 }

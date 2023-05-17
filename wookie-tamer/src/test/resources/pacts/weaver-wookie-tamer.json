@@ -1,0 +1,90 @@
+{
+  "consumer": {
+    "name": "weaver"
+  },
+  "interactions": [
+    {
+      "description": "A request for wookie fur",
+      "key": "7ce05ed0",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "colour": "string",
+            "orderNumber": 100
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "generators": {
+          "body": {
+            "$.colour": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.orderNumber": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.colour": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.orderNumber": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/fur/order"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "colour": "brown"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "transport": "https",
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.5.6"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "wookie-tamer"
+  }
+}
