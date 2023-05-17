@@ -43,12 +43,14 @@ Follow all the steps in link:demo-script.md#the-demo[`The demo` in the demo-scri
     ** Use `testCarpetEndpointForPinkCarpet` live template to insert the test
 . Fix weaver to handle `404`. Test is green when done.
   * In `CarpetResource`, add try/catch
+
 [source,java]
 ----
     catch (WebApplicationException ex) {
       throw new NotFoundException(order.colour());
     }
 ----
+
 [start=3]
 . Publish contract (in the `weaver` terminal, run `./publish-contracts-to-broker.sh 2.0`)
 . Go to broker (https://wookie-carpets.pactflow.io) and show updated contract
