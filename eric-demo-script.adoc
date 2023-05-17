@@ -1,0 +1,74 @@
+This is the demo "script" that Eric uses on his machine using his IntelliJ Live Templates.
+
+=== Pre-demo prep
+Follow all steps in the link:demo-script.md#pre-demo-prep[`Pre-demo` prep in the demo-script].
+
+=== Demo 1
+Follow all the steps in link:demo-script.md#the-demo[`The demo` in the demo-script].
+
+=== Demo 2
+==== Weaver Service
+. Open `CarpetResourceTest`
+. Remove the mocked `WookieService` and the `setUp` method
+. Place cursor above `@QuarkusTest`
+  * Use the `pactConsumerAnnotations` live template to insert class annotations
+. Place cursor before the `testCarpetEndpointForBrownColor`
+  * Use the `requestingFurContract` live template to insert the contract
+. Place cursor above `@Test` on the `testCarpetEndpointForBrownColor` method
+  * Use the `pactTestForRequestingFurContract` live template to insert the `@PactTestFor` annotation
+. Show tests pass
+. Publish the contract (in the `weaver` terminal, run `./publish-contracts-to-broker.sh`)
+. Show the broker (https://wookie-carpets.pactflow.io)
+
+'''
+
+==== Wookie Tamer Service
+[start=9]
+. Create test class `FurResourceContractVerificationTests`
+. Highlight the entire class
+  * Use the `furResourceContractVerificationTests` live template to insert the class body
+  * May need to resolve some imports - use IntelliJ CMD+1 for quick fix help on each import
+. Tests should be red. Go to broker (https://wookie-carpets.pactflow.io) and show tests red
+. Open `Skein` record, highlight `color` in record constructor
+  * `SHIFT+F6` to refactor/rename to `colour`
+. Tests should be green. Return to broker & see green there too
+
+<<<
+
+=== Demo 3
+==== Weaver Service
+. Write the contract `when I ask for pink I get 404`. Test should fail.
+  * In `CarpetResourceTest`:
+    ** Use `requestingPinkFurContract` live template to insert the contract
+    ** Use `testCarpetEndpointForPinkCarpet` live template to insert the test
+. Fix weaver to handle `404`. Test is green when done.
+  * In `CarpetResource`, add try/catch
+[source,java]
+----
+    catch (WebApplicationException ex) {
+      throw new NotFoundException(order.colour());
+    }
+----
+[start=3]
+. Publish contract (in the `weaver` terminal, run `./publish-contracts-to-broker.sh 2.0`)
+. Go to broker (https://wookie-carpets.pactflow.io) and show updated contract
+
+'''
+
+==== Wookie Tamer Service
+[start=5]
+. `CMD-S` tp trigger continuous testing to find contract. Tests should be red. Show broker.
+. Fix wookie tamer to return `null` which will send a `204`
+  * Open `FurResource` & change `wookieColor = WookieColor.BROWN;` to `return null;`
+. Congratulate on a job well-done, except...why are those tests red?! I'm doing error handling. Show broker.
+. Debate about `204` vs `404` & which is better option. Making `404` is more code, `204` should be fine. Let's just adjust mock to match reality.
+
+'''
+
+==== Back to Weaver Service
+[start=9]
+. In `CarpetResourceTest`, change `.status(Status.NOT_FOUND.getStatusCode())` to `.status(Status.NO_CONTENT.getStatusCode())`
+. Publish contract (in the `weaver` terminal, run `./publish-contracts-to-broker.sh 3.0`)
+. Ok, my mock now matches reality, but now both weaver & tamer tests are red? WTH?!?!
+  * Changing expectation to match reality doesn't get things green because apparently weaver doesn't properly handle `204`.
+  * Need to have a conversation about `204`/`404` between us
