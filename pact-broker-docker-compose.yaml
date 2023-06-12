@@ -1,0 +1,29 @@
+version: "3"
+services:
+  pact-postgres:
+    image: postgres:14
+    container_name: pact-postgres
+    healthcheck:
+      test: psql postgres --command "select 1" -U postgres
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_USER: pact
+      POSTGRES_PASSWORD: pact123
+      POSTGRES_DB: pact
+
+  pact-broker:
+    image: pactfoundation/pact-broker:2.110.0-pactbroker2.107.1-multi
+    container_name: pact-broker
+    depends_on:
+      - pact-postgres
+    ports:
+      - "9292:9292"
+    environment:
+      PACT_BROKER_DATABASE_CONNECT_MAX_RETRIES: "5"
+      PACT_BROKER_DATABASE_USERNAME: pact
+      PACT_BROKER_DATABASE_PASSWORD: pact123
+      PACT_BROKER_DATABASE_HOST: pact-postgres
+      PACT_BROKER_DATABASE_NAME: pact
+      PACT_BROKER_PORT: '9292'
+      PACT_BROKER_BASE_URL: 'https://localhost http://localhost http://localhost:9292 http://pact-broker:9292 https://host.docker.internal http://host.docker.internal http://host.docker.internal:9292'
