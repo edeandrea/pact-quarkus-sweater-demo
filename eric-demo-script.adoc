@@ -61,7 +61,7 @@ Follow all the steps in link:demo-script.md#the-demo[`The demo` in the demo-scri
 
 ==== Wookie Tamer Service
 [start=5]
-. `CMD-S` tp trigger continuous testing to find contract. Tests should be red. Show broker.
+. `CMD-S` to trigger continuous testing to find contract. Tests should be red. Show broker.
 . Fix wookie tamer to return `null` which will send a `204`
   * Open `FurResource` & change `wookieColor = WookieColor.BROWN;` to `return null;`
 . Congratulate on a job well-done, except...why are those tests red?! I'm doing error handling. Show broker.
