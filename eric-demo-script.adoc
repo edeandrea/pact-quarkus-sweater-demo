@@ -1,3 +1,5 @@
+:pdf-page-margin: [0.25in, 0.25in, 0.25in, 0.25in]
+
 This is the demo "script" that Eric uses on his machine using his IntelliJ Live Templates.
 
 === Pre-demo prep
