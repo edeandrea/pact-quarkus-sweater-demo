@@ -45,3 +45,4 @@ nb-configuration.xml
 .env
 .jpb
 **/deploy/k8s/gen
+.quarkus
