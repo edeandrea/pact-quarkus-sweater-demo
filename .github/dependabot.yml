@@ -11,27 +11,7 @@ updates:
       interval: "daily"
     target-branch: wookie
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "carpet-shopper" # Location of package manifests
-    schedule:
-      interval: "daily"
-    target-branch: wookie
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "weaver" # Location of package manifests
-    schedule:
-      interval: "daily"
-    target-branch: wookie
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "wookie-tamer" # Location of package manifests
-    schedule:
-      interval: "daily"
-    target-branch: wookie
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "architecture-recorder" # Location of package manifests
-    schedule:
-      interval: "daily"
-    target-branch: wookie
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "observer-extension" # Location of package manifests
+    directory: /
     schedule:
       interval: "daily"
     target-branch: wookie
