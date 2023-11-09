@@ -24,7 +24,7 @@ on:
       - '.github/workflows/carpet-shopper.yml'
 
 jobs:
-  build:
+  build-carpet-shopper:
 
     runs-on: ubuntu-latest
     defaults:

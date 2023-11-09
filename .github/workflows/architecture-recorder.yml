@@ -22,7 +22,7 @@ on:
       - '.github/workflows/architecture-recorder.yml'
 
 jobs:
-  build:
+  build-arch-recorder:
 
     runs-on: ubuntu-latest
     defaults:

@@ -24,7 +24,7 @@ on:
       - '.github/workflows/weaver.yml'
 
 jobs:
-  build:
+  build-weaver:
 
     runs-on: ubuntu-latest
     defaults:

@@ -24,7 +24,7 @@ on:
       - '.github/workflows/wookie-tamer.yml'
 
 jobs:
-  build:
+  build-wookie-tamer:
 
     runs-on: ubuntu-latest
     defaults:
