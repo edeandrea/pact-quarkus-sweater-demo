@@ -1,0 +1,58 @@
+name: Wookie Carpet Demo CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - wookie
+    paths-ignore:
+      - '**/images/**'
+      - '**/*.md'
+      - '**/*.adoc'
+      - 'initial-state/**'
+      - 'prep-demo'
+      - '.github/dependabot.yml'
+  pull_request:
+    branches:
+      - wookie
+    paths-ignore:
+      - '**/images/**'
+      - '**/*.md'
+      - '**/*.adoc'
+      - 'initial-state/**'
+      - 'prep-demo'
+      - '.github/dependabot.yml'
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - architecture-recorder
+          - carpet-shopper
+          - weaver
+          - wookie-tamer
+    name: "build-test-${{ matrix.app }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: maven
+
+      - name: Build and test extension
+        working-directory: observer-extension
+        run: ./mvnw -B clean install
+
+      - name: Run extension integration tests
+        working-directory: observer-extension/integration-tests
+        run: ./mvnw -B clean install
+
+      - name: "Build and test ${{ matrix.app }}"
+        working-directory: ${{ matrix.app }}
+        run: ./mvnw -B clean verify
