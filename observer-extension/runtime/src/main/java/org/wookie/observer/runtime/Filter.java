@@ -10,6 +10,8 @@ import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.ext.Provider;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Provider
@@ -27,6 +29,9 @@ public class Filter implements ContainerResponseFilter {
 
     @Inject
     Instance<RecorderService> service;
+
+    @ConfigProperty(name = "demo.interaction-latency", defaultValue = "336")
+    int latency;
 
     public Filter() {
     }
@@ -49,6 +54,13 @@ public class Filter implements ContainerResponseFilter {
 						interaction.setCorrelationId(correlationId);
 						responseContext.getHeaders().add(X_CARPET_CORRELATION_ID, correlationId);
 					});
+
+        try {
+            Thread.sleep(latency);
+        }
+        catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         recorder.recordInteraction(interaction);
     }

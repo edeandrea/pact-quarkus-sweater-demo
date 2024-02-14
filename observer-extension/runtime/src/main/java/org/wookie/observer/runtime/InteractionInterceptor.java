@@ -8,6 +8,8 @@ import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -20,12 +22,14 @@ public class InteractionInterceptor {
     private final ObjectMapper mapper;
     private final QuarkusConfig appConfig;
     private final CorrelationId correlationId;
+    private final int latency;
 
-    public InteractionInterceptor(RecorderService recorder, QuarkusConfig appConfig, ObjectMapper mapper, CorrelationId correlationId) {
+    public InteractionInterceptor(RecorderService recorder, QuarkusConfig appConfig, ObjectMapper mapper, CorrelationId correlationId, @ConfigProperty(name = "demo.interaction-latency", defaultValue = "336") int latency) {
         this.recorder = recorder;
         this.appConfig = appConfig;
         this.mapper = mapper;
         this.correlationId = correlationId;
+        this.latency = latency;
     }
 
     @AroundInvoke
@@ -47,12 +51,15 @@ public class InteractionInterceptor {
 
         // Quick and dirty hack
         // Ideally we should read this from a header, not the payload, and it should be generic
-        Matcher matcher = pattern.matcher(payload);
-        if (matcher.find()) {
-            String match = matcher.group(1);
+        Matcher orderNumberMatcher = pattern.matcher(payload);
+        if (orderNumberMatcher.find()) {
+            String match = orderNumberMatcher.group(1);
             interaction.setCorrelationId(match);
             correlationId.setCorrelationId(Integer.parseInt(match));
         }
+
+        // Add a delay so things animate more nicely on the screen
+        Thread.sleep(latency);
 
         recorder.recordInteraction(interaction);
 
