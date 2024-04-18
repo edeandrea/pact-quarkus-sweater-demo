@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "carpet-shopper/src/webui"
+    directory: "carpet-shopper/src/main/webui"
     schedule:
       interval: "daily"
     target-branch: wookie
