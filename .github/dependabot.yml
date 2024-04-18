@@ -11,6 +11,15 @@ updates:
     schedule:
       interval: "daily"
     target-branch: wookie
+    groups:
+      quarkus-version:
+        patterns:
+          - "io.quarkus.platform:quarkus-bom"
+          - "io.quarkus.platform:quarkus-maven-plugin"
+          - "io.quarkus:quarkus-bom"
+          - "io.quarkus:quarkus-maven-plugin"
+          - "io.quarkus:quarkus-extension-processor"
+          - "io.quarkus:quarkus-extension-maven-plugin"
 
   - package-ecosystem: "github-actions"
     directory: "/"
