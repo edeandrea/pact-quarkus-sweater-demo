@@ -7,7 +7,7 @@
 		"eventsourcemock": "^2.0.0",
 		"fontsource-open-sans": "^4.0.0",
 		"jest-canvas-mock": "^2.5.2",
-		"react": "^18.2.0",
+		"react": "^18.3.0",
 		"react-dom": "^18.2.0",
 		"react-hooks-sse": "^2.1.0",
 		"react-scripts": "5.0.1",
