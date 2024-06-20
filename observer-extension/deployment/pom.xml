@@ -12,11 +12,11 @@
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-rest-client-reactive-jackson-deployment</artifactId>
+      <artifactId>quarkus-rest-client-jackson-deployment</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-rest-client-reactive-deployment</artifactId>
+      <artifactId>quarkus-rest-client-deployment</artifactId>
     </dependency>
     <dependency>
       <groupId>org.wookie</groupId>
