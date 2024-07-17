@@ -12,7 +12,7 @@
 		"react-hooks-sse": "^2.1.0",
 		"react-scripts": "5.0.1",
 		"roughjs": "^4.6.6",
-		"styled-components": "^6.1.11",
+		"styled-components": "^6.1.12",
 		"universal-cookie": "^7.1.4",
 		"web-vitals": "^4.2.1"
 	},
