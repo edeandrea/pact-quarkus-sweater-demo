@@ -15,10 +15,10 @@
 		<compiler-plugin.version>3.13.0</compiler-plugin.version>
 		<failsafe-plugin.version>3.4.0</failsafe-plugin.version>
 		<failsafe.useModulePath>false</failsafe.useModulePath>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>21</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<quarkus.version>3.13.3</quarkus.version>
+		<quarkus.version>3.14.0</quarkus.version>
 		<surefire-plugin.version>3.4.0</surefire-plugin.version>
 	</properties>
 	<dependencyManagement>

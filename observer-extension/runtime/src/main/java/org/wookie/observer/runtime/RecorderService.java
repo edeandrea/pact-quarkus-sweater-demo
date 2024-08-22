@@ -39,7 +39,7 @@ public class RecorderService {
     }
 
     private String getBaseURL() {
-        return config.baseURL;
+        return config.baseURL();
     }
 
     public void registerComponent(String name) {
